@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ece\\Desktop\\HotelReservationsManager\\HotelReservationsManager\\HotelReservationsManager.csproj": {}
+    "C:\\Users\\Ece\\Desktop\\project\\HotelReservationsManager\\HotelReservationsManager\\HotelReservationsManager.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ece\\Desktop\\HotelReservationsManager\\HotelReservationsManager\\HotelReservationsManager.csproj": {
+    "C:\\Users\\Ece\\Desktop\\project\\HotelReservationsManager\\HotelReservationsManager\\HotelReservationsManager.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ece\\Desktop\\HotelReservationsManager\\HotelReservationsManager\\HotelReservationsManager.csproj",
+        "projectUniqueName": "C:\\Users\\Ece\\Desktop\\project\\HotelReservationsManager\\HotelReservationsManager\\HotelReservationsManager.csproj",
         "projectName": "HotelReservationsManager",
-        "projectPath": "C:\\Users\\Ece\\Desktop\\HotelReservationsManager\\HotelReservationsManager\\HotelReservationsManager.csproj",
+        "projectPath": "C:\\Users\\Ece\\Desktop\\project\\HotelReservationsManager\\HotelReservationsManager\\HotelReservationsManager.csproj",
         "packagesPath": "C:\\Users\\Ece\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ece\\Desktop\\HotelReservationsManager\\HotelReservationsManager\\obj\\",
+        "outputPath": "C:\\Users\\Ece\\Desktop\\project\\HotelReservationsManager\\HotelReservationsManager\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -5,7 +5,7 @@
 namespace HotelReservationsManager.Migrations
 {
     /// <inheritdoc />
-    public partial class Roles : Migration
+    public partial class Admin : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

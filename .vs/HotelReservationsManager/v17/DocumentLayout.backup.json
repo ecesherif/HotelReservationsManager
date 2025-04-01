@@ -1,26 +1,18 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Ece\\Desktop\\HotelReservationsManager\\",
+  "WorkspaceRootPath": "C:\\Users\\Ece\\Desktop\\project\\HotelReservationsManager\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ece\\Desktop\\HotelReservationsManager\\HotelReservationsManager\\Migrations\\20250331204801_Roles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:HotelReservationsManager\\Migrations\\20250331204801_Roles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{64233025-B5D9-41C5-8F5C-54A86ABD8135}|HotelReservationsManager\\HotelReservationsManager.csproj|c:\\users\\ece\\desktop\\hotelreservationsmanager\\hotelreservationsmanager\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{64233025-B5D9-41C5-8F5C-54A86ABD8135}|HotelReservationsManager\\HotelReservationsManager.csproj|solutionrelative:hotelreservationsmanager\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{64233025-B5D9-41C5-8F5C-54A86ABD8135}|HotelReservationsManager\\HotelReservationsManager.csproj|c:\\users\\ece\\desktop\\hotelreservationsmanager\\hotelreservationsmanager\\data\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{64233025-B5D9-41C5-8F5C-54A86ABD8135}|HotelReservationsManager\\HotelReservationsManager.csproj|solutionrelative:hotelreservationsmanager\\data\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{64233025-B5D9-41C5-8F5C-54A86ABD8135}|HotelReservationsManager\\HotelReservationsManager.csproj|c:\\users\\ece\\desktop\\hotelreservationsmanager\\hotelreservationsmanager\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{64233025-B5D9-41C5-8F5C-54A86ABD8135}|HotelReservationsManager\\HotelReservationsManager.csproj|c:\\users\\ece\\desktop\\project\\hotelreservationsmanager\\hotelreservationsmanager\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{64233025-B5D9-41C5-8F5C-54A86ABD8135}|HotelReservationsManager\\HotelReservationsManager.csproj|solutionrelative:hotelreservationsmanager\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ece\\Desktop\\HotelReservationsManager\\HotelReservationsManager\\Migrations\\20250331204401_Initial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:HotelReservationsManager\\Migrations\\20250331204401_Initial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{64233025-B5D9-41C5-8F5C-54A86ABD8135}|HotelReservationsManager\\HotelReservationsManager.csproj|c:\\users\\ece\\desktop\\project\\hotelreservationsmanager\\hotelreservationsmanager\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64233025-B5D9-41C5-8F5C-54A86ABD8135}|HotelReservationsManager\\HotelReservationsManager.csproj|solutionrelative:hotelreservationsmanager\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64233025-B5D9-41C5-8F5C-54A86ABD8135}|HotelReservationsManager\\HotelReservationsManager.csproj|c:\\users\\ece\\desktop\\project\\hotelreservationsmanager\\hotelreservationsmanager\\data\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64233025-B5D9-41C5-8F5C-54A86ABD8135}|HotelReservationsManager\\HotelReservationsManager.csproj|solutionrelative:hotelreservationsmanager\\data\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,69 +22,43 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "20250331204801_Roles.cs",
-              "DocumentMoniker": "C:\\Users\\Ece\\Desktop\\HotelReservationsManager\\HotelReservationsManager\\Migrations\\20250331204801_Roles.cs",
-              "RelativeDocumentMoniker": "HotelReservationsManager\\Migrations\\20250331204801_Roles.cs",
-              "ToolTip": "C:\\Users\\Ece\\Desktop\\HotelReservationsManager\\HotelReservationsManager\\Migrations\\20250331204801_Roles.cs",
-              "RelativeToolTip": "HotelReservationsManager\\Migrations\\20250331204801_Roles.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-31T20:48:01.565Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "20250331204401_Initial.cs",
-              "DocumentMoniker": "C:\\Users\\Ece\\Desktop\\HotelReservationsManager\\HotelReservationsManager\\Migrations\\20250331204401_Initial.cs",
-              "RelativeDocumentMoniker": "HotelReservationsManager\\Migrations\\20250331204401_Initial.cs",
-              "ToolTip": "C:\\Users\\Ece\\Desktop\\HotelReservationsManager\\HotelReservationsManager\\Migrations\\20250331204401_Initial.cs",
-              "RelativeToolTip": "HotelReservationsManager\\Migrations\\20250331204401_Initial.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-31T20:44:01.321Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "ApplicationDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\Ece\\Desktop\\HotelReservationsManager\\HotelReservationsManager\\Data\\ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Ece\\Desktop\\project\\HotelReservationsManager\\HotelReservationsManager\\Data\\ApplicationDbContext.cs",
               "RelativeDocumentMoniker": "HotelReservationsManager\\Data\\ApplicationDbContext.cs",
-              "ToolTip": "C:\\Users\\Ece\\Desktop\\HotelReservationsManager\\HotelReservationsManager\\Data\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\Ece\\Desktop\\project\\HotelReservationsManager\\HotelReservationsManager\\Data\\ApplicationDbContext.cs",
               "RelativeToolTip": "HotelReservationsManager\\Data\\ApplicationDbContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-31T19:17:28.828Z",
+              "WhenOpened": "2025-04-01T18:05:14.353Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "User.cs",
-              "DocumentMoniker": "C:\\Users\\Ece\\Desktop\\HotelReservationsManager\\HotelReservationsManager\\Data\\Models\\User.cs",
+              "DocumentMoniker": "C:\\Users\\Ece\\Desktop\\project\\HotelReservationsManager\\HotelReservationsManager\\Data\\Models\\User.cs",
               "RelativeDocumentMoniker": "HotelReservationsManager\\Data\\Models\\User.cs",
-              "ToolTip": "C:\\Users\\Ece\\Desktop\\HotelReservationsManager\\HotelReservationsManager\\Data\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\Ece\\Desktop\\project\\HotelReservationsManager\\HotelReservationsManager\\Data\\Models\\User.cs",
               "RelativeToolTip": "HotelReservationsManager\\Data\\Models\\User.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACwAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-31T19:16:59.997Z",
+              "WhenOpened": "2025-04-01T17:56:51.836Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Ece\\Desktop\\HotelReservationsManager\\HotelReservationsManager\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\Ece\\Desktop\\project\\HotelReservationsManager\\HotelReservationsManager\\Program.cs",
               "RelativeDocumentMoniker": "HotelReservationsManager\\Program.cs",
-              "ToolTip": "C:\\Users\\Ece\\Desktop\\HotelReservationsManager\\HotelReservationsManager\\Program.cs",
-              "RelativeToolTip": "HotelReservationsManager\\Program.cs",
-              "ViewState": "AgIAAEcAAAAAAAAAAAAwwF8AAAAKAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\Ece\\Desktop\\project\\HotelReservationsManager\\HotelReservationsManager\\Program.cs*",
+              "RelativeToolTip": "HotelReservationsManager\\Program.cs*",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAwwFoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-31T18:47:56.86Z",
               "EditorCaption": ""
