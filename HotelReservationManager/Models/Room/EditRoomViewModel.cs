@@ -17,11 +17,11 @@ namespace HotelReservationManager.Models.Room
         public bool Free { get; set; }
 
         [Required]
-        public double Price { get; set; }
+        public double PriceAdult { get; set; }
 
         [Required]
         [Display(Name = "Цена за деца")]
-        public double PriceChildren { get; set; }
+        public double PriceKid { get; set; }
 
         [Required]
         [StringLength(50)]
