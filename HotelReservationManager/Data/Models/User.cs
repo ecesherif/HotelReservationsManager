@@ -35,10 +35,10 @@ namespace HotelReservationManager.Data.Models
 
         [Required]
         [Display(Name = "Дата на назначаване")]
-        public DateTime HireDate { get; set; } = DateTime.UtcNow;
+        public DateTime HireDate { get; set; }
 
         [NotMapped]
-        public bool Active => FireDate == null;
+        public bool Active { get; set; }
 
         [Display(Name = "Дата на освобождаване")]
         public DateTime? FireDate { get; set; }
