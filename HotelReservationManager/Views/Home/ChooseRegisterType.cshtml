@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Избор на регистрация";
+}
+
+<h2 class="text-center">Изберете тип регистрация</h2>
+<hr />
+
+<div class="d-flex justify-content-center gap-3 mt-4">
+    <a class="btn btn-primary btn-lg" asp-action="Create" asp-controller="User">
+        Регистрация като Работник
+    </a>
+    <a class="btn btn-success btn-lg" asp-action="Create" asp-controller="Client">
+        Регистрация като Клиент
+    </a>
+</div>

@@ -12,13 +12,15 @@ namespace HotelReservationManager.Controllers
     [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
+        private readonly SignInManager<User> _signInManager;
         private readonly ApplicationDbContext _context;
         private readonly UserManager<User> _userManager;
 
-        public UserController(ApplicationDbContext context, UserManager<User> userManager)
+        public UserController(ApplicationDbContext context, UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _context = context;
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         private bool CheckEGN(string EGN)
@@ -42,6 +44,7 @@ namespace HotelReservationManager.Controllers
         }
 
         // GET: User/Create
+        [AllowAnonymous]
         public IActionResult Create()
         {
             return View();
@@ -51,6 +54,7 @@ namespace HotelReservationManager.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("FirstName,SecondName,LastName,EGN,UserName,Email,PhoneNumber,Password,ConfirmPassword")] CreateUserViewModel userVM)
         {

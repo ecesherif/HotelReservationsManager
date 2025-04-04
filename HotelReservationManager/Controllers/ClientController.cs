@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HotelReservationManager.Controllers
 {
-    [Authorize(Roles = "Amdin,Employee")]
+    [Authorize(Roles = "Admin,Employee")]
     public class ClientController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -53,6 +53,7 @@ namespace HotelReservationManager.Controllers
         }
 
         // GET: Client/Create
+        [AllowAnonymous]
         public IActionResult Create()
         {
             return View();
@@ -62,6 +63,7 @@ namespace HotelReservationManager.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("FirstName,LastName,PhoneNumber,Email,Mature")] CreateClientViewModel clientVM)
         {

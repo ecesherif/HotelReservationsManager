@@ -1,0 +1,40 @@
+﻿@model IEnumerable<HotelReservationManager.Data.Models.Room>
+
+@{
+    ViewData["Title"] = "Rooms";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<a asp-action="Create" class="btn btn-success mb-3">Create New Room</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Number</th>
+            <th>Type</th>
+            <th>Capacity</th>
+            <th>Price (Adult)</th>
+            <th>Price (Children)</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var room in Model)
+        {
+            <tr>
+                <td>@room.Number</td>
+                <td>@room.Type</td>
+                <td>@room.Capacity</td>
+                <td>@room.PriceAdult</td>
+                <td>@room.PriceKid</td>
+                <td>@(room.Free ? "Available" : "Occupied")</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@room.Id" class="btn btn-sm btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@room.Id" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
