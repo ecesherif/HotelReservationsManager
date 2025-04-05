@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace HotelReservationManager.Controllers
 {
-    [Authorize(Roles = "Amdin,Employee")]
+    [Authorize(Roles = "Admin,Employee")]
     public class ReservationController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -26,10 +26,32 @@ namespace HotelReservationManager.Controllers
         }
 
         // GET: Reservation
-        public async Task<IActionResult> Index()
+        public IActionResult Index(string searchString)
         {
-            var reservations = await _context.Reservations.ToListAsync();
-            return View(reservations);
+            ViewData["Controller"] = "Reservations";
+            ViewData["Action"] = "All";
+            var reservations = _context.Reservations
+            .SelectMany(reservation => reservation.ClientReservations.Select(cr => new DetailsReservationViewModel
+            {
+                Id = cr.Id,
+                ClientId = cr.ClientId,
+                ClientFullName = cr.Client.FirstName + " " + cr.Client.LastName,
+                ReservationId = reservation.Id,
+                RoomNumber = reservation.Room.Number,
+                CheckInTime = reservation.CheckInTime,
+                CheckOutTime = reservation.CheckOutTime,
+                Breakfast = reservation.Breakfast,
+                AllInclusive = reservation.AllInclusive,
+                TotalPrice = reservation.TotalPrice,
+                CreatorName = reservation.Creator.FirstName + " " + reservation.Creator.LastName
+            }))
+            .ToList();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                reservations = reservations.Where(r => r.ClientId == searchString).ToList();
+            }
+
+            return this.View(reservations);
         }
 
         // GET: Reservation/Details/5
@@ -40,7 +62,7 @@ namespace HotelReservationManager.Controllers
                 return NotFound();
             }
 
-            var reservation = await _context.Reservations.FirstOrDefaultAsync(m => m.Id == id);
+            var reservation = await _context.Reservations.FirstOrDefaultAsync(r => r.Id == id);
 
             if (reservation == null)
             {
@@ -55,73 +77,76 @@ namespace HotelReservationManager.Controllers
         // GET: Reservation/Create
         public async Task<IActionResult> Create()
         {
-            await _context.UpdateRooms();
             var reservationVM = new CreateReservationViewModel
             {
+                // Fetch available rooms and clients from the database
                 AvaiableRooms = await _context.Rooms.OrderBy(x => x.Number).ToListAsync(),
-                AvaiableClients = await _context.Clients.OrderBy(x => x.FirstName).ThenBy(x => x.FirstName).ToListAsync(),
+                AvaiableClients = await _context.Clients.OrderBy(x => x.FirstName).ThenBy(x => x.LastName).ToListAsync(),
                 CheckInTime = DateTime.Now,
                 CheckOutTime = DateTime.Now
             };
+
+            // Return the model to the view
             return View(reservationVM);
         }
 
-
         // POST: Reservation/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CheckInTime,CheckOutTime,Breakfast,AllInclusive,Id,RoomId,ClientIds")] CreateReservationViewModel reservationVM)
+        public async Task<IActionResult> Create([Bind("CheckInTime,CheckOutTime,Breakfast,AllInclusive,RoomId,ClientIds")] CreateReservationViewModel reservationVM)
         {
+            // Check if reservationVM is null or not correctly populated
+            if (reservationVM == null)
+            {
+                throw new ArgumentNullException(nameof(reservationVM), "The reservation view model is null.");
+            }
+
+            // Validate CheckOutTime and CheckInTime
             if (reservationVM.CheckOutTime < reservationVM.CheckInTime)
             {
                 ModelState.AddModelError(string.Empty, "The check-out cannot be before the check-in");
             }
 
+            // Validate Room availability
             var selectedRoom = await _context.Rooms.FindAsync(reservationVM.RoomId);
+            if (selectedRoom == null)
+            {
+                ModelState.AddModelError("RoomId", "The selected room does not exist");
+            }
+
+            // Check if room is available for the selected dates
             if (!await _context.IsRoomFreeInPeriod(selectedRoom, reservationVM.CheckInTime, reservationVM.CheckOutTime))
             {
                 ModelState.AddModelError("RoomId", "The selected room is not free during the entire period selected");
             }
-            if(reservationVM.ClientIds != null) 
-            {
-                if (reservationVM.ClientIds.Count == 0)
-                {
-                    ModelState.AddModelError("ClientIds", "Select clients");
-                }
-                if (selectedRoom.Capacity < reservationVM.ClientIds.Count)
-                {
-                    ModelState.AddModelError("RoomId", "The selected room doesn't have enough capacity for the clients");
-                }
-            }
-            else
+
+            // Check if Clients are selected
+            if (reservationVM.ClientIds == null || reservationVM.ClientIds.Count == 0)
             {
                 ModelState.AddModelError("ClientIds", "Select clients");
             }
 
+            // Ensure the selected room has enough capacity
+            if (selectedRoom.Capacity < reservationVM.ClientIds.Count)
+            {
+                ModelState.AddModelError("RoomId", "The selected room doesn't have enough capacity for the clients");
+            }
+
             if (ModelState.IsValid)
             {
-                var currentUser = await _context.Users.FindAsync(_userManager.GetUserId(User));
-                if (currentUser == null)
-                {
-                    return Unauthorized();
-                }
-
-
                 var reservation = new Reservation
                 {
-                    Id = Guid.NewGuid().ToString(),
-                    AllInclusive = reservationVM.AllInclusive,
-                    Breakfast = reservationVM.Breakfast,
+                    Room = selectedRoom,
                     CheckInTime = reservationVM.CheckInTime,
                     CheckOutTime = reservationVM.CheckOutTime,
-                    Room = selectedRoom,
-                    Creator = currentUser,
-                    TotalPrice = 0
+                    Breakfast = reservationVM.Breakfast,
+                    AllInclusive = reservationVM.AllInclusive,
+                    ClientReservations = reservationVM.ClientIds.Select(clientId =>
+                        new ClientReservation
+                        {
+                            ClientId = clientId
+                        }).ToList()
                 };
-                reservation.ClientReservations = reservationVM.ClientIds.Select(x => _context.Clients.Find(x))
-                    .Select(c => new ClientReservation { Client = c, Reservation = reservation }).ToList();
 
                 double price = 0;
                 foreach (var client in reservation.ClientReservations.Select(x => x.Client))
@@ -134,10 +159,13 @@ namespace HotelReservationManager.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            // If validation fails, repopulate the available rooms and clients
             reservationVM.AvaiableRooms = await _context.Rooms.OrderBy(x => x.Number).ToListAsync();
-            reservationVM.AvaiableClients = await _context.Clients.OrderBy(x => x.FirstName).ThenBy(x => x.FirstName).ToListAsync();
+            reservationVM.AvaiableClients = await _context.Clients.OrderBy(x => x.FirstName).ThenBy(x => x.LastName).ToListAsync();
             return View(reservationVM);
         }
+
 
         // GET: Reservation/Edit/5
         public async Task<IActionResult> Edit(string id)
@@ -147,7 +175,7 @@ namespace HotelReservationManager.Controllers
                 return NotFound();
             }
 
-            var reservation = await _context.Reservations.FirstOrDefaultAsync();
+            var reservation = await _context.Reservations.FirstOrDefaultAsync(r => r.Id == id);
             if (reservation == null)
             {
                 return NotFound();

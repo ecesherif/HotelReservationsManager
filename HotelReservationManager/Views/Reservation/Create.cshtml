@@ -1,77 +1,68 @@
 ﻿@model HotelReservationManager.Models.Reservation.CreateReservationViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Reservation";
 }
 
-<h1>Reservation</h1>
+<h1>Create Reservation</h1>
 
-<h4>Create</h4>
+<h4>Reservation</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="RoomId" class="control-label"></label>
-                <select asp-for="RoomId" class="form-control">
-                    @foreach (var item in Model.AvaiableRooms)
-                    {
-                        <option value="@item.Id">@item.Number</option>
-                    }
-                </select>
-                <span asp-validation-for="RoomId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ClientIds" class="control-label"></label>
-                <select asp-for="ClientIds" class="form-control" multiple id="clientSelect" placeholder="Select">
-                    @foreach (var item in Model.AvaiableClients)
-                    {
-                        <option value="@item.Id">@(item.FirstName + " " + item.LastName)</option>
-                    }
-                </select>
-                <span asp-validation-for="ClientIds" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CheckInTime" class="control-label"></label>
-                <input asp-for="CheckInTime" class="form-control" />
-                <span asp-validation-for="CheckInTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CheckOutTime" class="control-label"></label>
-                <input asp-for="CheckOutTime" class="form-control" />
-                <span asp-validation-for="CheckOutTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Breakfast" class="control-label"></label>
-                <select asp-for="Breakfast" class="form-control">
-                    <option value="True">Included</option>
-                    <option value="False">Not include</option>
-                </select>
-                <span asp-validation-for="Breakfast" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AllInclusive" class="control-label"></label>
-                <select asp-for="AllInclusive" class="form-control">
-                    <option value="True">All inclusive</option>
-                    <option value="False">Not all inclusive</option>
-                </select>
-                <span asp-validation-for="AllInclusive" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-success btn-outline" />
-                <a asp-action="Index" class="btn btn-warning btn-outline">Back to List</a>
-            </div>
-        </form>
-    </div>
-</div>
 
+<form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="CheckInTime"></label>
+        <input asp-for="CheckInTime" class="form-control" type="datetime-local" />
+        <span asp-validation-for="CheckInTime" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CheckOutTime"></label>
+        <input asp-for="CheckOutTime" class="form-control" type="datetime-local" />
+        <span asp-validation-for="CheckOutTime" class="text-danger"></span>
+    </div>
+
+    <!-- Room Selection Dropdown -->
+    <div class="form-group">
+        <label asp-for="RoomId">Room</label>
+        <select asp-for="RoomId" asp-items="@(new SelectList(Model.AvaiableRooms, "Id", "Number"))" class="form-control">
+            <option value="">-- Select Room --</option>
+        </select>
+        <span asp-validation-for="RoomId" class="text-danger"></span>
+    </div>
+
+    <!-- Clients Selection Dropdown -->
+    <div class="form-group">
+        <label for="ClientIds">Clients</label>
+        <select asp-for="ClientIds" asp-items="@(new MultiSelectList(Model.AvaiableClients, "Id", "FullName"))" multiple="multiple" class="form-control">
+        </select>
+        <span asp-validation-for="ClientIds" class="text-danger"></span>
+    </div>
+
+    <div class="form-check">
+        <input asp-for="Breakfast" class="form-check-input" type="checkbox" />
+        <label asp-for="Breakfast" class="form-check-label">Breakfast</label>
+        <span asp-validation-for="Breakfast" class="text-danger"></span>
+    </div>
+
+    <div class="form-check">
+        <input asp-for="AllInclusive" class="form-check-input" type="checkbox" />
+        <label asp-for="AllInclusive" class="form-check-label">All Inclusive</label>
+        <span asp-validation-for="AllInclusive" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Create Reservation</button>
+        <a href="@Url.Action("Index")" class="btn btn-secondary">Back to List</a>
+    </div>
+</form>
 
 @section Scripts {
-    <script>
-        $(document).ready(function () {
-            $('#clientSelect').select2();
-        });
-    </script>
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

@@ -8,8 +8,8 @@ namespace HotelReservationManager.Models.Reservation
 {
     public class CreateReservationViewModel
     {
-        public List<Data.Models.Room> AvaiableRooms { get; set; }
-        public List<Data.Models.Client> AvaiableClients { get; set; }
+        public List<Data.Models.Room> AvaiableRooms { get; set; } = new List<Data.Models.Room>();
+        public List<Data.Models.Client> AvaiableClients { get; set; } = new List<Data.Models.Client>();
 
         [Display(Name = "Room number")]
         public string RoomId { get; set; }

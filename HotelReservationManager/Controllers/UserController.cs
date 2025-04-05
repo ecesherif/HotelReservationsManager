@@ -77,7 +77,10 @@ namespace HotelReservationManager.Controllers
                 var result = await _userManager.CreateAsync(user, userVM.Password);
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, "Employee");
+                    if (user.UserName.Contains("Admin"))
+                    { await _userManager.AddToRoleAsync(user, "Admin"); }
+                    else
+                    { await _userManager.AddToRoleAsync(user, "Employee"); }
                     return RedirectToAction(nameof(Index));
                 }
                 foreach (var error in result.Errors)
@@ -110,6 +113,9 @@ namespace HotelReservationManager.Controllers
                 LastName = user.LastName,
                 FirstName = user.LastName,
                 SecondName = user.SecondName,
+                HireTime = user.HireTime,
+                FireTime = user.FireTime,
+                Active = user.Active,
                 Id = user.Id
             };
             return View(userVM);
@@ -120,51 +126,58 @@ namespace HotelReservationManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("FirstName,SecondName,LastName,EGN,Id,UserName,Email,PhoneNumber")] EditUserViewModel userVM)
+        public async Task<IActionResult> Edit(string id, [Bind("FirstName,SecondName,LastName,EGN,Id,UserName,Email,PhoneNumber,HireTime,FireTime,Active")] EditUserViewModel userVM)
         {
-            foreach (var item in userVM.EGN)
+            if (id != userVM.Id)
             {
-                if (item < '0' || item > '9')
+                return NotFound();
+            }
+
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            // Check if EGN has changed
+            if (user.EGN != userVM.EGN)
+            {
+                // Validate that EGN contains only digits
+                foreach (var item in userVM.EGN)
                 {
-                    ModelState.AddModelError("EGN", "The EGN mush have only digits");
-                    goto Cont;
+                    if (item < '0' || item > '9')
+                    {
+                        ModelState.AddModelError("EGN", "The EGN must have only digits.");
+                        return View(userVM); // return the view with the error
+                    }
+                }
+
+                // Validate if the EGN already exists in the database
+                if (await _context.Users.Where(x => x.EGN == userVM.EGN).CountAsync() != 0)
+                {
+                    ModelState.AddModelError("EGN", "User with this EGN exists.");
+                    return View(userVM); // return the view with the error
                 }
             }
-            
-            if (await _context.Users.Where(x => x.EGN == userVM.EGN).CountAsync() != 0)
-            {
-                ModelState.AddModelError("EGN", "User with this EGN exists");
-            }
-        Cont:
+
             if (ModelState.IsValid)
             {
-                try
-                {
-                    var user = await _context.Users.FindAsync(userVM.Id);
-                    user.FirstName = userVM.FirstName;
-                    user.SecondName = userVM.SecondName;
-                    user.LastName = userVM.LastName;
-                    user.EGN = userVM.EGN;
-                    user.PhoneNumber = userVM.PhoneNumber;
-                    user.UserName = userVM.UserName;
-                    user.Email = userVM.Email;
+                user.FirstName = userVM.FirstName;
+                user.SecondName = userVM.SecondName;
+                user.LastName = userVM.LastName;
+                user.EGN = userVM.EGN;
+                user.UserName = userVM.UserName;
+                user.Email = userVM.Email;
+                user.PhoneNumber = userVM.PhoneNumber;
+                user.HireTime = userVM.HireTime;
+                user.FireTime = userVM.FireTime;
+                user.Active = userVM.Active;
 
-                    _context.Update(user);
-                    await _context.SaveChangesAsync();
-                }
-                catch (Exception)
-                {
-                    if (!UserExists(userVM.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                _context.Update(user);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(userVM);
         }
 
@@ -201,6 +214,12 @@ namespace HotelReservationManager.Controllers
         public async Task<IActionResult> TogleActivity(string id)
         {
             var user = await _context.Users.FindAsync(id);
+            if (user.FireTime.HasValue)
+            {
+                // User is deactivated, handle reactivation logic
+                ModelState.AddModelError("", "This user is already deactivated due to FireTime. Reactivate if necessary.");
+                return RedirectToAction(nameof(Index));
+            }
             if (user.Active)
             {
                 await _userManager.RemoveFromRoleAsync(user, "Employee");

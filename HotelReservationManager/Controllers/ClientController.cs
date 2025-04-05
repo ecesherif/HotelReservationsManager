@@ -10,19 +10,26 @@ using HotelReservationManager.Data.Models;
 using HotelReservationManager.Models.Client;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Identity;
 
 namespace HotelReservationManager.Controllers
 {
-    [Authorize(Roles = "Amdin,Employee")]
+    [Authorize(Roles = "Amdin, Employee")]
     public class ClientController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public ClientController(ApplicationDbContext context)
+        public ClientController(ApplicationDbContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
-
+        private async Task<bool> IsUserFired()
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+            return currentUser?.FireTime != null;
+        }
         // GET: Client
         public async Task<IActionResult> Index()
         {
@@ -37,8 +44,14 @@ namespace HotelReservationManager.Controllers
                 return NotFound();
             }
 
+            if (await IsUserFired())
+            {
+                return Forbid();  // Deny access if FireDate is not null
+            }
+
             var client = await _context.Clients
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (client == null)
             {
                 return NotFound();
@@ -57,58 +70,14 @@ namespace HotelReservationManager.Controllers
 
             return View(clientVM);
         }
-
-        public async Task<IActionResult> SearchReservations(string firstName, string lastName)
-        {
-            var query = _context.Clients.AsQueryable();
-
-            // Apply filtering based on first and last name
-            if (!string.IsNullOrEmpty(firstName))
-            {
-                query = query.Where(c => c.FirstName.Contains(firstName));
-            }
-
-            if (!string.IsNullOrEmpty(lastName))
-            {
-                query = query.Where(c => c.LastName.Contains(lastName));
-            }
-
-            // Query the related ClientReservations and Reservations
-            var clients = await query
-                .Include(c => c.ClientReservations)  // Include the ClientReservations
-                .ThenInclude(cr => cr.Reservation)   // Include the Reservations
-                .ToListAsync();
-
-            var reservations = new List<SearchReservationViewModel>();
-
-            foreach (var client in clients)
-            {
-                foreach (var clientReservation in client.ClientReservations)
-                {
-                    // Add a new ReservationViewModel with the Client's name and Reservation data
-                    reservations.Add(new SearchReservationViewModel
-                    {
-                        ReservationId = clientReservation.Reservation.Id,
-                        ReservationDate = clientReservation.Reservation.ReservationDate,
-                        ClientName = $"{client.FirstName} {client.LastName}"  // Concatenate Client Name
-                    });
-                }
-            }
-
-            var reservationVM = new HotelReservationManager.Models.Client.SearchReservationsViewModel
-            {
-                Reservations = reservations
-            };
-
-            return View(reservationVM);
-        }
-
-
-
-
         // GET: Client/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+
+            if (await IsUserFired())
+            {
+                return Forbid();  // Deny access if FireDate is not null
+            }
             return View();
         }
 
@@ -119,6 +88,10 @@ namespace HotelReservationManager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("FirstName,LastName,PhoneNumber,Email,Mature")] CreateClientViewModel clientVM)
         {
+            if (await IsUserFired())
+            {
+                return Forbid();  // Deny access if FireDate is not null
+            }
             if (ModelState.IsValid)
             {
                 var client = new Client
@@ -140,6 +113,10 @@ namespace HotelReservationManager.Controllers
         // GET: Client/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
+            if (await IsUserFired())
+            {
+                return Forbid();  // Deny access if FireDate is not null
+            }
             if (id == null)
             {
                 return NotFound();
@@ -169,6 +146,10 @@ namespace HotelReservationManager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit([Bind("FirstName,LastName,PhoneNumber,Email,Mature,Id")] EditClientViewModel clientVM)
         {
+            if (await IsUserFired())
+            {
+                return Forbid();  // Deny access if FireDate is not null
+            }
             if (ModelState.IsValid)
             {
                 try
@@ -204,6 +185,10 @@ namespace HotelReservationManager.Controllers
         // GET: Client/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
+            if (await IsUserFired())
+            {
+                return Forbid();  // Deny access if FireDate is not null
+            }
             if (id == null)
             {
                 return NotFound();
@@ -224,6 +209,10 @@ namespace HotelReservationManager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
+            if (await IsUserFired())
+            {
+                return Forbid();  // Deny access if FireDate is not null
+            }
             var client = await _context.Clients.FindAsync(id);
             _context.Clients.Remove(client);
             await _context.SaveChangesAsync();

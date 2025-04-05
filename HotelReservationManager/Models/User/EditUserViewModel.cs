@@ -45,5 +45,14 @@ namespace HotelReservationManager.Models.User
         [DataType(DataType.PhoneNumber)]
         [Display(Name = "Phone number")]
         public string PhoneNumber { get; set; }
+        [Required]
+        [Display(Name = "Enabled on")]
+        public DateTime HireTime { get; set; }
+
+        [Required]
+        public bool Active { get; set; }
+
+        [Display(Name = "Disabled on")]
+        public DateTime? FireTime { get; set; }
     }
 }
