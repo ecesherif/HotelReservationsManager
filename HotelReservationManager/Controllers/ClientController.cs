@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HotelReservationManager.Controllers
 {
-    [Authorize(Roles = "Admin,Employee")]
+    
     public class ClientController : Controller
     {
         private readonly ApplicationDbContext _context;

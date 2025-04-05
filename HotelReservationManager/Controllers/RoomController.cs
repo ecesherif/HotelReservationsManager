@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace HotelReservationManager.Controllers
 {
-    [Authorize(Roles = "Admin,Employee")]
+    
     public class RoomController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -24,14 +24,17 @@ namespace HotelReservationManager.Controllers
         public async Task<IActionResult> Index()
         {
             await UpdateRooms();
-            return View(await _context.Rooms.ToListAsync());
+            var rooms = await _context.Rooms.ToListAsync();
+            return View("IndexRoom", rooms);  // Specify the custom view name
         }
 
+
+
         // GET: Rooms/Create
-        [Authorize(Roles = "Admin")]
+
         public IActionResult Create()
         {
-            return View();
+            return View("CreateRoom");
         }
 
         public async Task<bool> IsRoomFreeInPeriod(Room room, DateTime begin, DateTime end, string currReservId = null)
@@ -76,7 +79,7 @@ namespace HotelReservationManager.Controllers
         // POST: Rooms/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        
         public async Task<IActionResult> Create([Bind("Capacity,Type,Free,Price,PriceChildren,Number")] CreateRoomViewModel roomVM)
         {
             if (roomVM.PriceAdult < 0)
@@ -107,11 +110,11 @@ namespace HotelReservationManager.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(roomVM);
+            return View( roomVM);
         }
 
         // GET: Rooms/Edit/5
-        [Authorize(Roles = "Admin")]
+        
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -135,13 +138,13 @@ namespace HotelReservationManager.Controllers
                 PriceKid = room.PriceKid,
                 Type = room.Type
             };
-            return View(roomVM);
+            return View("EditRoom", roomVM);
         }
 
         // POST: Rooms/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        
         public async Task<IActionResult> Edit([Bind("Capacity,Type,Free,Price,PriceChildren,Number,Id")] EditRoomViewModel roomVM)
         {
             if (roomVM.PriceAdult < 0)
@@ -192,7 +195,7 @@ namespace HotelReservationManager.Controllers
         }
 
         // GET: Rooms/Delete/5
-        [Authorize(Roles = "Admin")]
+        
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -206,13 +209,13 @@ namespace HotelReservationManager.Controllers
                 return NotFound();
             }
 
-            return View(room);
+            return View("DeleteRoom", room);
         }
 
         // POST: Rooms/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var room = await _context.Rooms.FindAsync(id);

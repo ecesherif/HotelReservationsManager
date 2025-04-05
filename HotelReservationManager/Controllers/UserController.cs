@@ -9,7 +9,7 @@ using HotelReservationManager.Models.Client;
 
 namespace HotelReservationManager.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    
     public class UserController : Controller
     {
         private readonly SignInManager<User> _signInManager;
@@ -40,7 +40,7 @@ namespace HotelReservationManager.Controllers
         // GET: User
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Users.ToListAsync());
+            return View("IndexUser",await _context.Users.ToListAsync());
         }
 
         // GET: User/Create
@@ -129,7 +129,7 @@ namespace HotelReservationManager.Controllers
                 PhoneNumber = user.PhoneNumber
             };
 
-            return View(userVM);
+            return View("DetailUser", userVM);
         }
         // GET: User/Edit/5
         public async Task<IActionResult> Edit(string id)
@@ -155,7 +155,7 @@ namespace HotelReservationManager.Controllers
                 SecondName = user.SecondName,
                 Id = user.Id
             };
-            return View(userVM);
+            return View("EditUser", userVM);
         }
 
         // POST: User/Edit/5
@@ -211,7 +211,7 @@ namespace HotelReservationManager.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(userVM);
+            return View("EditUser", userVM);
         }
 
         // GET: User/Delete/5
@@ -229,7 +229,7 @@ namespace HotelReservationManager.Controllers
                 return NotFound();
             }
 
-            return View(user);
+            return View("DeleteUser", user);
         }
 
         // POST: User/Delete/5

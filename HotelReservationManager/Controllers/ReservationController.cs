@@ -6,10 +6,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HotelReservationManager.Controllers;
+using System.Linq;
 
 namespace HotelReservationManager.Controllers
 {
-    [Authorize(Roles = "Amdin,Employee")]
+    
     public class ReservationController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -25,7 +26,7 @@ namespace HotelReservationManager.Controllers
         public async Task<IActionResult> Index()
         {
             var reservations = await _context.Reservations.ToListAsync();
-            return View(reservations);
+            return View("IndexReservation", reservations);
         }
 
         // GET: Reservation/Details/5
@@ -73,16 +74,17 @@ namespace HotelReservationManager.Controllers
         // GET: Reservation/Create
         public async Task<IActionResult> Create()
         {
-            await UpdateRooms();
-            var reservationVM = new CreateReservationViewModel
+            var model = new CreateReservationViewModel
             {
-                AvaiableRooms = await _context.Rooms.OrderBy(x => x.Number).ToListAsync(),
-                AvaiableClients = await _context.Clients.OrderBy(x => x.FirstName).ThenBy(x => x.FirstName).ToListAsync(),
-                CheckInTime = DateTime.Now,
-                CheckOutTime = DateTime.Now
+                AvaiableRooms = await _context.Rooms.ToListAsync(),
+                AvaiableClients = await _context.Clients.ToListAsync()
             };
-            return View(reservationVM);
+
+            return View("CreateReservation", model); // make sure this matches your actual .cshtml file
         }
+
+
+
 
         public async Task<bool> IsRoomFreeInPeriod(Room room, DateTime begin, DateTime end, string currReservId = null)
         {
@@ -104,7 +106,7 @@ namespace HotelReservationManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CheckInTime,CheckOutTime,Breakfast,AllInclusive,Id,RoomId,ClientIds")] CreateReservationViewModel reservationVM)
+        public async Task<IActionResult> Create([Bind("CheckInTime,CheckOutTime,Breakfast,AllInclusive,RoomId,ClientIds")] CreateReservationViewModel reservationVM)
         {
             if (reservationVM.CheckOutTime < reservationVM.CheckInTime)
             {
@@ -112,24 +114,25 @@ namespace HotelReservationManager.Controllers
             }
 
             var selectedRoom = await _context.Rooms.FindAsync(reservationVM.RoomId);
-            if (!await IsRoomFreeInPeriod(selectedRoom, reservationVM.CheckInTime, reservationVM.CheckOutTime))
+            if (selectedRoom == null)
             {
-                ModelState.AddModelError("RoomId", "The selected room is not free during the entire period selected");
-            }
-            if (reservationVM.ClientIds != null)
-            {
-                if (reservationVM.ClientIds.Count == 0)
-                {
-                    ModelState.AddModelError("ClientIds", "Select clients");
-                }
-                if (selectedRoom.Capacity < reservationVM.ClientIds.Count)
-                {
-                    ModelState.AddModelError("RoomId", "The selected room doesn't have enough capacity for the clients");
-                }
+                ModelState.AddModelError("RoomId", "Selected room not found.");
             }
             else
             {
-                ModelState.AddModelError("ClientIds", "Select clients");
+                if (!await IsRoomFreeInPeriod(selectedRoom, reservationVM.CheckInTime, reservationVM.CheckOutTime))
+                {
+                    ModelState.AddModelError("RoomId", "The selected room is not free during the entire period selected");
+                }
+
+                if (reservationVM.ClientIds == null || reservationVM.ClientIds.Count == 0)
+                {
+                    ModelState.AddModelError("ClientIds", "Select clients");
+                }
+                else if (selectedRoom.Capacity < reservationVM.ClientIds.Count)
+                {
+                    ModelState.AddModelError("RoomId", "The selected room doesn't have enough capacity for the clients");
+                }
             }
 
             if (ModelState.IsValid)
@@ -140,36 +143,46 @@ namespace HotelReservationManager.Controllers
                     return Unauthorized();
                 }
 
+                var clientIds = reservationVM.ClientIds.Select(id => int.Parse(id)).ToList();
+
+                var clients = await _context.Clients
+                    .Where(c => clientIds.Contains(c.Id))
+                    .ToListAsync();
 
                 var reservation = new Reservation
                 {
-                    Id = int.Parse(Guid.NewGuid().ToString()),
                     AllInclusive = reservationVM.AllInclusive,
                     Breakfast = reservationVM.Breakfast,
                     CheckInTime = reservationVM.CheckInTime,
                     CheckOutTime = reservationVM.CheckOutTime,
                     Room = selectedRoom,
                     Creator = currentUser,
-                    TotalPrice = 0
                 };
-                reservation.ClientReservations = reservationVM.ClientIds.Select(x => _context.Clients.Find(x))
-                    .Select(c => new ClientReservation { Client = c, Reservation = reservation }).ToList();
 
-                double price = 0;
-                foreach (var client in reservation.ClientReservations.Select(x => x.Client))
-                {
-                    price += (client.Mature) ? reservation.Room.PriceAdult : reservation.Room.PriceKid;
-                }
-                reservation.TotalPrice = price;
+                reservation.ClientReservations = clients
+                    .Select(c => new ClientReservation { Client = c, Reservation = reservation })
+                    .ToList();
+
+                reservation.TotalPrice = clients.Sum(client =>
+                    client.Mature ? reservation.Room.PriceAdult : reservation.Room.PriceKid
+                );
 
                 _context.Add(reservation);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            // Reload dropdowns in case of validation failure
             reservationVM.AvaiableRooms = await _context.Rooms.OrderBy(x => x.Number).ToListAsync();
-            reservationVM.AvaiableClients = await _context.Clients.OrderBy(x => x.FirstName).ThenBy(x => x.FirstName).ToListAsync();
-            return View(reservationVM);
+            reservationVM.AvaiableClients = await _context.Clients
+                .OrderBy(x => x.FirstName)
+                .ThenBy(x => x.LastName)
+                .ToListAsync();
+
+            return View("CreateReservation", reservationVM);
         }
+
+
 
         // GET: Reservation/Edit/5
         public async Task<IActionResult> Edit(string id)
