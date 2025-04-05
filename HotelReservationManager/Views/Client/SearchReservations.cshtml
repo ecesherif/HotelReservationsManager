@@ -1,0 +1,53 @@
+﻿@model HotelReservationManager.Models.Client.SearchReservationsViewModel
+@model HotelReservationManager.Data.Models.Client
+
+
+@{
+    ViewData["Title"] = "Search Reservations";
+}
+
+<h2>Search Reservations</h2>
+
+<form method="get" asp-action="SearchReservations">
+    <div>
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" value="@Context.Request.Query["firstName"]" />
+    </div>
+    <div>
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" value="@Context.Request.Query["lastName"]" />
+    </div>
+    <button type="submit">Search</button>
+</form>
+
+@if (Model.Reservations != null && Model.Reservations.Any())
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Reservation ID</th>
+                <th>Client Name</th>
+                <th>Reservation Date</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var reservation in Model.Reservations)
+            {
+                <tr>
+                    <td>@reservation.Id</td>
+                    <td>@reservation.Client.FirstName @reservation.Client.LastName</td>
+                    <td>@reservation.ReservationDate.ToString("yyyy-MM-dd")</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@reservation.Id">View Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No reservations found.</p>
+}
+

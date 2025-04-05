@@ -58,6 +58,54 @@ namespace HotelReservationManager.Controllers
             return View(clientVM);
         }
 
+        public async Task<IActionResult> SearchReservations(string firstName, string lastName)
+        {
+            var query = _context.Clients.AsQueryable();
+
+            // Apply filtering based on first and last name
+            if (!string.IsNullOrEmpty(firstName))
+            {
+                query = query.Where(c => c.FirstName.Contains(firstName));
+            }
+
+            if (!string.IsNullOrEmpty(lastName))
+            {
+                query = query.Where(c => c.LastName.Contains(lastName));
+            }
+
+            // Query the related ClientReservations and Reservations
+            var clients = await query
+                .Include(c => c.ClientReservations)  // Include the ClientReservations
+                .ThenInclude(cr => cr.Reservation)   // Include the Reservations
+                .ToListAsync();
+
+            var reservations = new List<SearchReservationViewModel>();
+
+            foreach (var client in clients)
+            {
+                foreach (var clientReservation in client.ClientReservations)
+                {
+                    // Add a new ReservationViewModel with the Client's name and Reservation data
+                    reservations.Add(new SearchReservationViewModel
+                    {
+                        ReservationId = clientReservation.Reservation.Id,
+                        ReservationDate = clientReservation.Reservation.ReservationDate,
+                        ClientName = $"{client.FirstName} {client.LastName}"  // Concatenate Client Name
+                    });
+                }
+            }
+
+            var reservationVM = new HotelReservationManager.Models.Client.SearchReservationsViewModel
+            {
+                Reservations = reservations
+            };
+
+            return View(reservationVM);
+        }
+
+
+
+
         // GET: Client/Create
         public IActionResult Create()
         {

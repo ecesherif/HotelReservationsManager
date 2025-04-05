@@ -1,0 +1,23 @@
+﻿@* Views/User/TogleActivity.cshtml (optional custom view) *@
+@model HotelReservationManager.Data.Models.User
+
+@{
+    ViewData["Title"] = "Toggle User Activity";
+}
+
+<h2>Toggle Activity</h2>
+
+<div>
+    <p>
+        Current Status: <strong>@(Model.Active ? "Active" : "Inactive")</strong>
+    </p>
+
+    <form asp-action="TogleActivity">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn @(Model.Active ? "btn-warning" : "btn-success")">
+            @(Model.Active ? "Deactivate User" : "Activate User")
+        </button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+

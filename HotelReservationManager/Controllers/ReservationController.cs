@@ -50,6 +50,8 @@ namespace HotelReservationManager.Controllers
             return View(reservation);
         }
 
+
+
         // GET: Reservation/Create
         public async Task<IActionResult> Create()
         {

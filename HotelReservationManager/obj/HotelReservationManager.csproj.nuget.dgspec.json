@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ece\\Desktop\\HotelReservationManager\\HotelReservationManager\\HotelReservationManager.csproj": {}
+    "C:\\Users\\elica\\OneDrive\\Работен плот\\HotelReservationsManager\\HotelReservationManager\\HotelReservationManager.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ece\\Desktop\\HotelReservationManager\\HotelReservationManager\\HotelReservationManager.csproj": {
+    "C:\\Users\\elica\\OneDrive\\Работен плот\\HotelReservationsManager\\HotelReservationManager\\HotelReservationManager.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ece\\Desktop\\HotelReservationManager\\HotelReservationManager\\HotelReservationManager.csproj",
+        "projectUniqueName": "C:\\Users\\elica\\OneDrive\\Работен плот\\HotelReservationsManager\\HotelReservationManager\\HotelReservationManager.csproj",
         "projectName": "HotelReservationManager",
-        "projectPath": "C:\\Users\\Ece\\Desktop\\HotelReservationManager\\HotelReservationManager\\HotelReservationManager.csproj",
-        "packagesPath": "C:\\Users\\Ece\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ece\\Desktop\\HotelReservationManager\\HotelReservationManager\\obj\\",
+        "projectPath": "C:\\Users\\elica\\OneDrive\\Работен плот\\HotelReservationsManager\\HotelReservationManager\\HotelReservationManager.csproj",
+        "packagesPath": "C:\\Users\\elica\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\elica\\OneDrive\\Работен плот\\HotelReservationsManager\\HotelReservationManager\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Ece\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\elica\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -42,9 +43,8 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+          "auditMode": "all"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -90,6 +90,28 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            },
+            {
+              "name": "Microsoft.Net.Sdk.Compilers.Toolset",
+              "version": "[9.0.101, 9.0.101]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[8.0.11, 8.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"

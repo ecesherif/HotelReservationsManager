@@ -223,3 +223,10 @@ C:\Users\Ece\Desktop\HotelReservationManager\HotelReservationManager.Tests\obj\D
 C:\Users\Ece\Desktop\HotelReservationManager\HotelReservationManager.Tests\obj\Debug\net8.0\HotelReservationManager.Tests.pdb
 C:\Users\Ece\Desktop\HotelReservationManager\HotelReservationManager.Tests\obj\Debug\net8.0\HotelReservationManager.Tests.genruntimeconfig.cache
 C:\Users\Ece\Desktop\HotelReservationManager\HotelReservationManager.Tests\obj\Debug\net8.0\ref\HotelReservationManager.Tests.dll
+C:\Users\elica\OneDrive\Работен плот\HotelReservationsManager\HotelReservationManager.Tests\bin\Debug\net8.0\CoverletSourceRootsMapping_HotelReservationManager.Tests
+C:\Users\elica\OneDrive\Работен плот\HotelReservationsManager\HotelReservationManager.Tests\obj\Debug\net8.0\HotelReservationManager.Tests.csproj.AssemblyReference.cache
+C:\Users\elica\OneDrive\Работен плот\HotelReservationsManager\HotelReservationManager.Tests\obj\Debug\net8.0\HotelReservationManager.Tests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\elica\OneDrive\Работен плот\HotelReservationsManager\HotelReservationManager.Tests\obj\Debug\net8.0\HotelReservationManager.Tests.AssemblyInfoInputs.cache
+C:\Users\elica\OneDrive\Работен плот\HotelReservationsManager\HotelReservationManager.Tests\obj\Debug\net8.0\HotelReservationManager.Tests.AssemblyInfo.cs
+C:\Users\elica\OneDrive\Работен плот\HotelReservationsManager\HotelReservationManager.Tests\obj\Debug\net8.0\HotelReservationManager.Tests.csproj.CoreCompileInputs.cache
+C:\Users\elica\OneDrive\Работен плот\HotelReservationsManager\HotelReservationManager.Tests\obj\Debug\net8.0\HotelReservationManager.Tests.sourcelink.json
