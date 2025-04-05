@@ -26,27 +26,6 @@ namespace HotelReservationManager.Controllers
             return View();
         }
         [AllowAnonymous]
-        public IActionResult ChooseRegisterType()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Home");  // Redirect to homepage if already logged in
-            }
-
-            return View();
-        }
-        [AllowAnonymous]
-        public IActionResult RegisterUser()
-        {
-            return View("CreateUser", new CreateUserViewModel());
-        }
-
-        [AllowAnonymous]
-        public IActionResult RegisterClient()
-        {
-            return View("CreateClient", new CreateClientViewModel());
-        }
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

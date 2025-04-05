@@ -33,18 +33,12 @@
                             <a class="nav-link" asp-controller="Room" asp-action="Index">Rooms</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Reservation" asp-action="Index">Reservations</a> <!-- Added Reservations Link -->
+                            <a class="nav-link" asp-controller="Reservation" asp-action="Index">Reservations</a> 
                         </li>
                         @if (isAdmin)
                         {
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="User" asp-action="Index">Users</a>
-                            </li>
-                        }
-                        @if (isEmployee)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Room" asp-action="Create">Create Room</a>
                             </li>
                         }
                     </ul>

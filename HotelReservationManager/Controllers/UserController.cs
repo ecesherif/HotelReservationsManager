@@ -23,20 +23,6 @@ namespace HotelReservationManager.Controllers
             _signInManager = signInManager;
         }
 
-        private bool CheckEGN(string EGN)
-        {
-            var a = new int[] { 2, 4, 8, 5, 10, 9, 7, 3, 6 };
-            int sum = 0;
-            for (int i = 0; i < 9; i++)
-            {
-                sum += (EGN[i] - '0') * a[i];
-            }
-            sum %= 11;
-            if (sum == 10)
-                sum = 0;
-            return EGN[9] == (sum + '0');
-        }
-
         // GET: User
         public async Task<IActionResult> Index()
         {
@@ -66,10 +52,6 @@ namespace HotelReservationManager.Controllers
                     return View(userVM);
                 }
             }
-            if (!CheckEGN(userVM.EGN))
-            {
-                ModelState.AddModelError("EGN", "Невалидно ЕГН.");
-            }
             if (await _context.Users.AnyAsync(x => x.EGN == userVM.EGN))
             {
                 ModelState.AddModelError("EGN", "Има потребител с това ЕГН.");
@@ -87,13 +69,16 @@ namespace HotelReservationManager.Controllers
                     SecondName = userVM.SecondName,
                     LastName = userVM.LastName,
                     PhoneNumber = userVM.PhoneNumber,
+                    PhoneNumberConfirmed = true,
                     Active = true,
                     HireDate = DateTime.Now,
+                    EmailConfirmed = true
                 };
+                user.EmailConfirmed = true;
                 var result = await _userManager.CreateAsync(user, userVM.Password);
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, "Employee");
+                    await _userManager.AddToRoleAsync(user, "EMPLOYEE");
                     return RedirectToAction(nameof(Index));
                 }
                 foreach (var error in result.Errors)
@@ -172,10 +157,6 @@ namespace HotelReservationManager.Controllers
                     ModelState.AddModelError("EGN", "ЕГН-то трябва да се състои само от цифри.");
                     return View(userVM);
                 }
-            }
-            if (!CheckEGN(userVM.EGN))
-            {
-                ModelState.AddModelError("EGN", "Невалидно ЕГН.");
             }
             if (await _context.Users.AnyAsync(x => x.EGN == userVM.EGN))
             {
