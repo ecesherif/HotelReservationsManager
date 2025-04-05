@@ -1,16 +1,18 @@
-﻿using HotelReservationManager.Data.Models;
-using HotelReservationManager.Data;
-using HotelReservationManager.Models.Room;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using HotelReservationManager.Data;
+using HotelReservationManager.Data.Models;
+using HotelReservationManager.Models.Room;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HotelReservationManager.Controllers
 {
-    
+    [Authorize(Roles = "Amdin,Employee")]
     public class RoomController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -23,74 +25,34 @@ namespace HotelReservationManager.Controllers
         // GET: Rooms
         public async Task<IActionResult> Index()
         {
-            await UpdateRooms();
-            var rooms = await _context.Rooms.ToListAsync();
-            return View("IndexRoom", rooms);  // Specify the custom view name
+            await _context.UpdateRooms();
+            return View(await _context.Rooms.ToListAsync());
         }
-
-
 
         // GET: Rooms/Create
-
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
-            return View("CreateRoom");
-        }
-
-        public async Task<bool> IsRoomFreeInPeriod(Room room, DateTime begin, DateTime end, string currReservId = null)
-        {
-            var reservs = await _context.Reservations.Where(x => x.Room.Id == room.Id && (currReservId == null || x.Id != int.Parse(currReservId))).ToListAsync();
-            foreach (var reserv in reservs)
-            {
-                if ((begin >= reserv.CheckInTime && begin <= reserv.CheckOutTime) ||
-                    (end >= reserv.CheckInTime && end <= reserv.CheckOutTime) ||
-                    (begin <= reserv.CheckInTime && end >= reserv.CheckOutTime))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        public async Task UpdateRoom(Room room)
-        {
-            room.Free = true;
-            var reservs = await _context.Reservations.Where(x => x.Room.Id == room.Id).ToListAsync();
-            foreach (var reserv in reservs)
-            {
-                if (reserv.CheckInTime.Date <= DateTime.Now.Date && DateTime.Now.Date <= reserv.CheckOutTime.Date)
-                {
-                    room.Free = false;
-                    _context.Update(room);
-                }
-            }
-        }
-
-        public async Task UpdateRooms()
-        {
-            var rooms = await _context.Rooms.ToListAsync();
-            foreach (var room in rooms)
-            {
-                await UpdateRoom(room);
-            }
-            await _context.SaveChangesAsync();
+            return View();
         }
 
         // POST: Rooms/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("Capacity,Type,Free,Price,PriceChildren,Number")] CreateRoomViewModel roomVM)
         {
-            if (roomVM.PriceAdult < 0)
+            if (roomVM.Price < 0)
             {
                 ModelState.AddModelError("Price", "The price must be positive");
             }
-            if (roomVM.PriceKid < 0)
+            if (roomVM.PriceChildren < 0)
             {
                 ModelState.AddModelError("PriceChildren", "The price for children must be positive");
             }
-            if (await _context.Rooms.AnyAsync(x => x.Number == roomVM.Number))
+            if (await _context.Rooms.Where(x => x.Number == roomVM.Number).CountAsync() != 0)
             {
                 ModelState.AddModelError("Number", "Room with the same number already exists");
             }
@@ -98,11 +60,11 @@ namespace HotelReservationManager.Controllers
             {
                 var room = new Room
                 {
-                    Id = int.Parse(Guid.NewGuid().ToString()),
+                    Id = Guid.NewGuid().ToString(),
                     Capacity = roomVM.Capacity,
                     Type = roomVM.Type,
-                    PriceAdult = roomVM.PriceAdult,
-                    PriceKid = roomVM.PriceKid,
+                    Price = roomVM.Price,
+                    PriceChildren = roomVM.PriceChildren,
                     Number = roomVM.Number,
                     Free = true
                 };
@@ -110,11 +72,11 @@ namespace HotelReservationManager.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View( roomVM);
+            return View(roomVM);
         }
 
         // GET: Rooms/Edit/5
-        
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -127,40 +89,38 @@ namespace HotelReservationManager.Controllers
             {
                 return NotFound();
             }
-            await UpdateRoom(room);
+            await _context.UpdateRoom(room);
             var roomVM = new EditRoomViewModel
             {
                 Capacity = room.Capacity,
                 Free = room.Free,
-                Id = room.Id.ToString(),
+                Id = room.Id,
                 Number = room.Number,
-                PriceAdult = room.PriceAdult,
-                PriceKid = room.PriceKid,
+                Price = room.Price,
+                PriceChildren = room.PriceChildren,
                 Type = room.Type
             };
-            return View("EditRoom", roomVM);
+            return View(roomVM);
         }
 
         // POST: Rooms/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit([Bind("Capacity,Type,Free,Price,PriceChildren,Number,Id")] EditRoomViewModel roomVM)
         {
-            if (roomVM.PriceAdult < 0)
+            if (roomVM.Price < 0)
             {
                 ModelState.AddModelError("Price", "The price must be positive");
             }
-            if (roomVM.PriceKid < 0)
+            if (roomVM.PriceChildren < 0)
             {
                 ModelState.AddModelError("PriceChildren", "The price for children must be positive");
             }
             var room = await _context.Rooms.FindAsync(roomVM.Id);
-            if (room == null)
-            {
-                return NotFound();
-            }
-            if (await _context.Rooms.AnyAsync(x => x.Number == roomVM.Number && x.Id != int.Parse(roomVM.Id)))
+            if (await _context.Rooms.Where(x => x.Number == roomVM.Number).CountAsync() != 0 && roomVM.Number != room.Number)
             {
                 ModelState.AddModelError("Number", "Room with the same number already exists");
             }
@@ -171,8 +131,8 @@ namespace HotelReservationManager.Controllers
                     room.Capacity = roomVM.Capacity;
                     room.Type = roomVM.Type;
                     room.Free = roomVM.Free;
-                    room.PriceAdult = roomVM.PriceAdult;
-                    room.PriceKid = roomVM.PriceKid;
+                    room.Price = roomVM.Price;
+                    room.PriceChildren = roomVM.PriceChildren;
                     room.Number = roomVM.Number;
 
                     _context.Update(room);
@@ -180,7 +140,7 @@ namespace HotelReservationManager.Controllers
                 }
                 catch (Exception)
                 {
-                    if (!await _context.Rooms.AnyAsync(e => e.Id == int.Parse(roomVM.Id)))
+                    if (!RoomExists(roomVM.Id))
                     {
                         return NotFound();
                     }
@@ -195,7 +155,7 @@ namespace HotelReservationManager.Controllers
         }
 
         // GET: Rooms/Delete/5
-        
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -203,25 +163,31 @@ namespace HotelReservationManager.Controllers
                 return NotFound();
             }
 
-            var room = await _context.Rooms.FindAsync(id);
+            var room = await _context.Rooms
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (room == null)
             {
                 return NotFound();
             }
 
-            return View("DeleteRoom", room);
+            return View(room);
         }
 
         // POST: Rooms/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var room = await _context.Rooms.FindAsync(id);
             _context.Rooms.Remove(room);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        private bool RoomExists(string id)
+        {
+            return _context.Rooms.Any(e => e.Id == id);
         }
     }
 }

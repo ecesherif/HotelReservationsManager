@@ -1,5 +1,9 @@
 ﻿using HotelReservationManager.Data.Models;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace HotelReservationManager.Models.Room
 {
@@ -12,11 +16,11 @@ namespace HotelReservationManager.Models.Room
         public RoomType Type { get; set; }
 
         [Required]
-        public double PriceAdult { get; set; }
+        public double Price { get; set; }
 
         [Required]
-        [Display(Name = "Цена за деца")]
-        public double PriceKid { get; set; }
+        [Display(Name = "Price for children")]
+        public double PriceChildren { get; set; }
 
         [Required]
         [StringLength(50)]

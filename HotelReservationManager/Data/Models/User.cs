@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace HotelReservationManager.Data.Models
 {
-    public class User : IdentityUser
+    public class User : IdentityUser<string>
     {
         [Required]
         [StringLength(50)]
@@ -13,12 +16,12 @@ namespace HotelReservationManager.Data.Models
         [Required]
         [Phone]
         [DataType(DataType.PhoneNumber)]
-        [Display(Name = "Телефон")]
+        [Display(Name = "Phone number")]
         public override string PhoneNumber { get; set; }
 
         [Required]
         [StringLength(50)]
-        [Display(Name = "Потребителско име")]
+        [Display(Name = "Username")]
         public override string UserName { get; set; }
 
         [Required]
@@ -30,18 +33,17 @@ namespace HotelReservationManager.Data.Models
         public string LastName { get; set; }
 
         [Required]
-        [StringLength(10, MinimumLength = 10, ErrorMessage = "Невалидно ЕГН!")]
+        [StringLength(10, MinimumLength = 10, ErrorMessage = "The EGN must be 10 digits")]
         public string EGN { get; set; }
 
         [Required]
-        [Display(Name = "Дата на назначаване")]
-        public DateTime HireDate { get; set; }
+        [Display(Name = "Enabled on")]
+        public DateTime HireTime { get; set; }
 
         [Required]
-        [Display(Name = "Active")]
         public bool Active { get; set; }
 
-        [Display(Name = "Дата на освобождаване")]
-        public DateTime? FireDate { get; set; }
+        [Display(Name = "Disabled on")]
+        public DateTime? FireTime { get; set; }
     }
 }

@@ -1,0 +1,15 @@
+﻿
+@{
+    switch (ViewData["code"])
+    {
+        case "404":
+            ViewData["Title"] = "Resource not found";
+            break;
+        default:
+            ViewData["Title"] = ViewData["code"];
+            break;
+    };
+}
+
+<h1 class="text-danger">@ViewData["Title"]</h1>
+

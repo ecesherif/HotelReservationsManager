@@ -299,3 +299,6 @@ C:\Users\elica\OneDrive\Работен плот\HotelReservationsManager\HotelRe
 C:\Users\elica\OneDrive\Работен плот\HotelReservationsManager\HotelReservationManager\obj\Debug\net8.0\HotelReservationManager.pdb
 C:\Users\elica\OneDrive\Работен плот\HotelReservationsManager\HotelReservationManager\obj\Debug\net8.0\HotelReservationManager.genruntimeconfig.cache
 C:\Users\elica\OneDrive\Работен плот\HotelReservationsManager\HotelReservationManager\obj\Debug\net8.0\ref\HotelReservationManager.dll
+C:\Users\Ece\Desktop\HotelReservationManager\HotelReservationManager\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.InMemory.dll
+C:\Users\Ece\Desktop\HotelReservationManager\HotelReservationManager\bin\Debug\net8.0\Castle.Core.dll
+C:\Users\Ece\Desktop\HotelReservationManager\HotelReservationManager\bin\Debug\net8.0\Moq.dll

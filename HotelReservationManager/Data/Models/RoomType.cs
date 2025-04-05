@@ -1,22 +1,21 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace HotelReservationManager.Data.Models
 {
     public enum RoomType
     {
-        [Display(Name = "Две легла")]
+        [Display(Name = "Two beds")]
         TwoBeds,
-
-        [Display(Name = "Апартамент")]
         Appartment,
-
-        [Display(Name = "Двойно легло")]
-        DoubleBed,
-
-        [Display(Name = "Пентхаус")]
+        [Display(Name = "Double bed")]
+        DoubleBed, 
         Pentahouse,
-
-        [Display(Name = "Мезонет")]
-        Maisonette
+        Maisonette,
+        [Display(Name = "Single")]
+        Single
     }
 }

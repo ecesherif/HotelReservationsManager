@@ -1,0 +1,81 @@
+﻿@model IEnumerable<HotelReservationManager.Data.Models.Reservation>
+
+@{
+    ViewData["Title"] = "Reservations";
+}
+
+<h1>Reservations</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success active">Create New</a>
+</p>
+<table class="table table-striped table-hover" id="reservationTable" style="width: 100%">
+    <thead>
+        <tr>
+            <th>
+                Room number
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CheckInTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CheckOutTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Breakfast)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AllInclusive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalPrice)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Room.Number)
+                </td>
+                <td>
+                    @item.CheckInTime.ToShortDateString()
+                </td>
+                <td>
+                    @item.CheckOutTime.ToShortDateString()
+                </td>
+                <td>
+                    @(item.Breakfast ? "Included" : "Not included")
+                </td>
+                <td>
+                    @(item.AllInclusive ? "All inclusive" : "Not all iclusive")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary active">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info active">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger active">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('#reservationTable').DataTable({
+                "lengthMenu": [10, 25, 50],
+                'columns': [null, null, null, null, null, null, {
+                    'searchable': false,
+                    'orderable': false
+                }]
+            });
+        });
+    </script>
+}

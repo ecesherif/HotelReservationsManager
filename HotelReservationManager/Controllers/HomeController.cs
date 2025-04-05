@@ -1,9 +1,11 @@
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
-using HotelReservationManager.Models;
-using HotelReservationManager.Models.Client;
-using HotelReservationManager.Models.User;
-using Microsoft.AspNetCore.Authorization;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using HotelReservationManager.Models;
 
 namespace HotelReservationManager.Controllers
 {
@@ -21,14 +23,16 @@ namespace HotelReservationManager.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-        [AllowAnonymous]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult StatusCode(string code)
+        {
+            ViewData["code"] = code;
+            return View();
         }
     }
 }

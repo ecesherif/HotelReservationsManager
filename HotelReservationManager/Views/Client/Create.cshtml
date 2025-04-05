@@ -1,48 +1,53 @@
 ﻿@model HotelReservationManager.Models.Client.CreateClientViewModel
 
 @{
-    ViewBag.Title = "Регистрация на клиент";
+    ViewData["Title"] = "Create";
 }
 
-<h2>@ViewBag.Title</h2>
+<h1>Client</h1>
 
-@using (Html.BeginForm("Create", "Client", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.FirstName)
-        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+<h4>Create</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mature" class="control-label"></label>
+                <select asp-for="Mature" class="form-control">
+                    <option value="True">Adult</option>
+                    <option value="False">Child</option>
+                </select>
+                <span asp-validation-for="Mature" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-success btn-outline" />
+                <a asp-action="Index" class="btn btn-warning btn-outline">Back to List</a>
+            </div>
+        </form>
     </div>
+</div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.LastName)
-        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.PhoneNumber)
-        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email)
-        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Mature)
-        <div class="form-check">
-            @Html.CheckBoxFor(m => m.Mature, new { @class = "form-check-input" })
-            <label class="form-check-label">Да, клиентът е пълнолетен</label>
-        </div>
-        @Html.ValidationMessageFor(m => m.Mature, "", new { @class = "text-danger" })
-    </div>
-
-    <button type="submit" class="btn btn-success">Регистрирай клиент</button>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

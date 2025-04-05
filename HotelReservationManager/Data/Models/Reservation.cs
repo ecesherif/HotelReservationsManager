@@ -1,38 +1,34 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace HotelReservationManager.Data.Models
 {
-    public class Reservation
+    public class Reservation 
     {
-        public int Id { get; set; }
+        [Required]
+        [Display(Name = "Id")]
+        public string Id { get; set; }
+
         [Required]
         public virtual Room Room { get; set; }
-        public int RoomId { get; set; }
 
         [Required]
         public virtual User Creator { get; set; }
-        public string CreatorId { get; set; }
 
         public virtual List<ClientReservation> ClientReservations { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
-        [Display(Name = "Дата на настаняване")]
+        [Display(Name = "Check-in")]
         public DateTime CheckInTime { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
-        [Display(Name = "Дата на освобождаване")]
+        [Display(Name = "Check-out")]
         public DateTime CheckOutTime { get; set; }
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            if (CheckOutTime <= CheckInTime)
-            {
-                yield return new ValidationResult(
-                    "Дата на освобождаване трябва да бъде след дата на настаняване!",
-                    new[] { nameof(CheckOutTime) });
-            }
-        }
 
         [Required]
         public bool Breakfast { get; set; }
@@ -44,7 +40,8 @@ namespace HotelReservationManager.Data.Models
 
 
         [Required]
-        [Display(Name = "Дължима сума")]
+        [Display(Name = "Total price")]
         public double TotalPrice { get; set; }
+
     }
 }

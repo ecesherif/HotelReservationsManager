@@ -1,22 +1,33 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace HotelReservationManager.Data.Models
 {
-    public class Room
+    public class Room 
     {
-        public int Id { get; set; }
+        [Required]
+        [Display(Name = "Id")]
+        public string Id { get; set; }
+        [Required]
         public uint Capacity { get; set; }
 
+        [Required]
         public RoomType Type { get; set; }
 
+        [Required]
         public bool Free { get; set; }
 
-        [Display(Name = "Цена за възрастен")]
-        public double PriceAdult { get; set; }
+        [Required]
+        public double Price { get; set; }
 
-        [Display(Name = "Цена за дете")]
-        public double PriceKid { get; set; }
+        [Required]
+        [Display(Name = "Price for children")]
+        public double PriceChildren { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string Number { get; set; }
     }

@@ -1,0 +1,77 @@
+﻿@model HotelReservationManager.Models.Reservation.EditReservationViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Reservation</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="RoomId" class="control-label"></label>
+                <select asp-for="RoomId" class="form-control">
+                    @foreach (var item in Model.AvaiableRooms)
+                    {
+                        <option value="@item.Id">@item.Number</option>
+                    }
+                </select>
+                <span asp-validation-for="RoomId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClientIds" class="control-label"></label>
+                <select asp-for="ClientIds" class="form-control" multiple id="clientSelect" placeholder="Select">
+                    @foreach (var item in Model.AvaiableClients)
+                    {
+                        <option value="@item.Id">@(item.FirstName + " " + item.LastName)</option>
+                    }
+                </select>
+                <span asp-validation-for="ClientIds" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CheckInTime" class="control-label"></label>
+                <input asp-for="CheckInTime" class="form-control" />
+                <span asp-validation-for="CheckInTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CheckOutTime" class="control-label"></label>
+                <input asp-for="CheckOutTime" class="form-control" />
+                <span asp-validation-for="CheckOutTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Breakfast" class="control-label"></label>
+                <select asp-for="Breakfast" class="form-control">
+                    <option value="True">Included</option>
+                    <option value="False">Not included</option>
+                </select>
+                <span asp-validation-for="Breakfast" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AllInclusive" class="control-label"></label>
+                <select asp-for="AllInclusive" class="form-control">
+                    <option value="True">All inclusive</option>
+                    <option value="False">Not all inclusive</option>
+                </select>
+                <span asp-validation-for="AllInclusive" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary btn-outline" />
+                <a asp-action="Index" class="btn btn-warning btn-outline">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#clientSelect').select2();
+        });
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

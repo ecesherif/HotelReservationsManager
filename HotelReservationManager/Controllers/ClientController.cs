@@ -1,13 +1,19 @@
-﻿using HotelReservationManager.Data.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using HotelReservationManager.Data;
+using HotelReservationManager.Data.Models;
 using HotelReservationManager.Models.Client;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace HotelReservationManager.Controllers
 {
-    
+    [Authorize(Roles = "Amdin,Employee")]
     public class ClientController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -24,7 +30,7 @@ namespace HotelReservationManager.Controllers
         }
 
         // GET: Client/Details/5
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
@@ -43,7 +49,7 @@ namespace HotelReservationManager.Controllers
                 Reservations = client.ClientReservations.Select(x => x.Reservation).ToList(),
                 Email = client.Email,
                 FirstName = client.FirstName,
-                Id = client.Id.ToString(),
+                Id = client.Id,
                 LastName = client.LastName,
                 Mature = client.Mature,
                 PhoneNumber = client.PhoneNumber
@@ -53,7 +59,6 @@ namespace HotelReservationManager.Controllers
         }
 
         // GET: Client/Create
-        [AllowAnonymous]
         public IActionResult Create()
         {
             return View();
@@ -63,7 +68,6 @@ namespace HotelReservationManager.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("FirstName,LastName,PhoneNumber,Email,Mature")] CreateClientViewModel clientVM)
         {
@@ -73,7 +77,7 @@ namespace HotelReservationManager.Controllers
                 {
                     Email = clientVM.Email,
                     FirstName = clientVM.FirstName,
-                    Id = int.Parse(Guid.NewGuid().ToString()),
+                    Id = Guid.NewGuid().ToString(),
                     LastName = clientVM.LastName,
                     Mature = clientVM.Mature,
                     PhoneNumber = clientVM.PhoneNumber
@@ -102,7 +106,7 @@ namespace HotelReservationManager.Controllers
             {
                 Email = client.Email,
                 FirstName = client.FirstName,
-                Id = client.Id.ToString(),
+                Id = client.Id,
                 LastName = client.LastName,
                 Mature = client.Mature,
                 PhoneNumber = client.PhoneNumber
@@ -125,7 +129,7 @@ namespace HotelReservationManager.Controllers
                     {
                         Email = clientVM.Email,
                         FirstName = clientVM.FirstName,
-                        Id = int.Parse(clientVM.Id),
+                        Id = clientVM.Id,
                         LastName = clientVM.LastName,
                         Mature = clientVM.Mature,
                         PhoneNumber = clientVM.PhoneNumber
@@ -135,7 +139,7 @@ namespace HotelReservationManager.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ClientExists(int.Parse(clientVM.Id)))
+                    if (!ClientExists(clientVM.Id))
                     {
                         return NotFound();
                     }
@@ -150,7 +154,7 @@ namespace HotelReservationManager.Controllers
         }
 
         // GET: Client/Delete/5
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
@@ -178,7 +182,7 @@ namespace HotelReservationManager.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ClientExists(int id)
+        private bool ClientExists(string id)
         {
             return _context.Clients.Any(e => e.Id == id);
         }

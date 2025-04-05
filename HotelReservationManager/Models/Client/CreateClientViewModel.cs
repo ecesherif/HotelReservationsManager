@@ -1,23 +1,27 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace HotelReservationManager.Models.Client
 {
     public class CreateClientViewModel
     {
         [Required]
-        [Display(Name = "Име")]
+        [Display(Name = "First Name")]
         [StringLength(50)]
         public string FirstName { get; set; }
 
         [Required]
-        [Display(Name = "Фамилия")]
+        [Display(Name = "Last Name")]
         [StringLength(50)]
         public string LastName { get; set; }
 
         [Required]
         [Phone]
         [DataType(DataType.PhoneNumber)]
-        [Display(Name = "Телефон")]
+        [Display(Name = "Phone number")]
         public string PhoneNumber { get; set; }
 
         [Required]
@@ -26,7 +30,7 @@ namespace HotelReservationManager.Models.Client
         public string Email { get; set; }
 
         [Required]
-        [Display(Name = "Възрастен")]
+        [Display(Name = "Adult")]
         public bool Mature { get; set; }
     }
 }
