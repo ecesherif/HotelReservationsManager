@@ -1,0 +1,137 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\elica\\OneDrive\\\u0420\u0430\u0431\u043E\u0442\u0435\u043D \u043F\u043B\u043E\u0442\\HotelReservationsManager\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F37CBCC0-87D5-48AC-8458-9BFDE2D71F80}|HotelReservationManager\\HotelReservationManager.csproj|c:\\users\\elica\\onedrive\\\u0440\u0430\u0431\u043E\u0442\u0435\u043D \u043F\u043B\u043E\u0442\\hotelreservationsmanager\\hotelreservationmanager\\models\\client\\createclientviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F37CBCC0-87D5-48AC-8458-9BFDE2D71F80}|HotelReservationManager\\HotelReservationManager.csproj|solutionrelative:hotelreservationmanager\\models\\client\\createclientviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F37CBCC0-87D5-48AC-8458-9BFDE2D71F80}|HotelReservationManager\\HotelReservationManager.csproj|c:\\users\\elica\\onedrive\\\u0440\u0430\u0431\u043E\u0442\u0435\u043D \u043F\u043B\u043E\u0442\\hotelreservationsmanager\\hotelreservationmanager\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{F37CBCC0-87D5-48AC-8458-9BFDE2D71F80}|HotelReservationManager\\HotelReservationManager.csproj|solutionrelative:hotelreservationmanager\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F37CBCC0-87D5-48AC-8458-9BFDE2D71F80}|HotelReservationManager\\HotelReservationManager.csproj|c:\\users\\elica\\onedrive\\\u0440\u0430\u0431\u043E\u0442\u0435\u043D \u043F\u043B\u043E\u0442\\hotelreservationsmanager\\hotelreservationmanager\\views\\room\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F37CBCC0-87D5-48AC-8458-9BFDE2D71F80}|HotelReservationManager\\HotelReservationManager.csproj|solutionrelative:hotelreservationmanager\\views\\room\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F37CBCC0-87D5-48AC-8458-9BFDE2D71F80}|HotelReservationManager\\HotelReservationManager.csproj|c:\\users\\elica\\onedrive\\\u0440\u0430\u0431\u043E\u0442\u0435\u043D \u043F\u043B\u043E\u0442\\hotelreservationsmanager\\hotelreservationmanager\\views\\home\\statuscode.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F37CBCC0-87D5-48AC-8458-9BFDE2D71F80}|HotelReservationManager\\HotelReservationManager.csproj|solutionrelative:hotelreservationmanager\\views\\home\\statuscode.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F37CBCC0-87D5-48AC-8458-9BFDE2D71F80}|HotelReservationManager\\HotelReservationManager.csproj|c:\\users\\elica\\onedrive\\\u0440\u0430\u0431\u043E\u0442\u0435\u043D \u043F\u043B\u043E\u0442\\hotelreservationsmanager\\hotelreservationmanager\\views\\home\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F37CBCC0-87D5-48AC-8458-9BFDE2D71F80}|HotelReservationManager\\HotelReservationManager.csproj|solutionrelative:hotelreservationmanager\\views\\home\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F37CBCC0-87D5-48AC-8458-9BFDE2D71F80}|HotelReservationManager\\HotelReservationManager.csproj|c:\\users\\elica\\onedrive\\\u0440\u0430\u0431\u043E\u0442\u0435\u043D \u043F\u043B\u043E\u0442\\hotelreservationsmanager\\hotelreservationmanager\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{F37CBCC0-87D5-48AC-8458-9BFDE2D71F80}|HotelReservationManager\\HotelReservationManager.csproj|solutionrelative:hotelreservationmanager\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F37CBCC0-87D5-48AC-8458-9BFDE2D71F80}|HotelReservationManager\\HotelReservationManager.csproj|c:\\users\\elica\\onedrive\\\u0440\u0430\u0431\u043E\u0442\u0435\u043D \u043F\u043B\u043E\u0442\\hotelreservationsmanager\\hotelreservationmanager\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F37CBCC0-87D5-48AC-8458-9BFDE2D71F80}|HotelReservationManager\\HotelReservationManager.csproj|solutionrelative:hotelreservationmanager\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CreateClientViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\elica\\OneDrive\\\u0420\u0430\u0431\u043E\u0442\u0435\u043D \u043F\u043B\u043E\u0442\\HotelReservationsManager\\HotelReservationManager\\Models\\Client\\CreateClientViewModel.cs",
+              "RelativeDocumentMoniker": "HotelReservationManager\\Models\\Client\\CreateClientViewModel.cs",
+              "ToolTip": "C:\\Users\\elica\\OneDrive\\\u0420\u0430\u0431\u043E\u0442\u0435\u043D \u043F\u043B\u043E\u0442\\HotelReservationsManager\\HotelReservationManager\\Models\\Client\\CreateClientViewModel.cs",
+              "RelativeToolTip": "HotelReservationManager\\Models\\Client\\CreateClientViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-06T07:05:00.36Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\elica\\OneDrive\\\u0420\u0430\u0431\u043E\u0442\u0435\u043D \u043F\u043B\u043E\u0442\\HotelReservationsManager\\HotelReservationManager\\Views\\Room\\Index.cshtml",
+              "RelativeDocumentMoniker": "HotelReservationManager\\Views\\Room\\Index.cshtml",
+              "ToolTip": "C:\\Users\\elica\\OneDrive\\\u0420\u0430\u0431\u043E\u0442\u0435\u043D \u043F\u043B\u043E\u0442\\HotelReservationsManager\\HotelReservationManager\\Views\\Room\\Index.cshtml",
+              "RelativeToolTip": "HotelReservationManager\\Views\\Room\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-04-06T06:49:54.215Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "StatusCode.cshtml",
+              "DocumentMoniker": "C:\\Users\\elica\\OneDrive\\\u0420\u0430\u0431\u043E\u0442\u0435\u043D \u043F\u043B\u043E\u0442\\HotelReservationsManager\\HotelReservationManager\\Views\\Home\\StatusCode.cshtml",
+              "RelativeDocumentMoniker": "HotelReservationManager\\Views\\Home\\StatusCode.cshtml",
+              "ToolTip": "C:\\Users\\elica\\OneDrive\\\u0420\u0430\u0431\u043E\u0442\u0435\u043D \u043F\u043B\u043E\u0442\\HotelReservationsManager\\HotelReservationManager\\Views\\Home\\StatusCode.cshtml",
+              "RelativeToolTip": "HotelReservationManager\\Views\\Home\\StatusCode.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-04-06T06:46:22.599Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Privacy.cshtml",
+              "DocumentMoniker": "C:\\Users\\elica\\OneDrive\\\u0420\u0430\u0431\u043E\u0442\u0435\u043D \u043F\u043B\u043E\u0442\\HotelReservationsManager\\HotelReservationManager\\Views\\Home\\Privacy.cshtml",
+              "RelativeDocumentMoniker": "HotelReservationManager\\Views\\Home\\Privacy.cshtml",
+              "ToolTip": "C:\\Users\\elica\\OneDrive\\\u0420\u0430\u0431\u043E\u0442\u0435\u043D \u043F\u043B\u043E\u0442\\HotelReservationsManager\\HotelReservationManager\\Views\\Home\\Privacy.cshtml",
+              "RelativeToolTip": "HotelReservationManager\\Views\\Home\\Privacy.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-04-06T06:46:17.017Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\elica\\OneDrive\\\u0420\u0430\u0431\u043E\u0442\u0435\u043D \u043F\u043B\u043E\u0442\\HotelReservationsManager\\HotelReservationManager\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "HotelReservationManager\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\elica\\OneDrive\\\u0420\u0430\u0431\u043E\u0442\u0435\u043D \u043F\u043B\u043E\u0442\\HotelReservationsManager\\HotelReservationManager\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "HotelReservationManager\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-04-06T06:45:55.653Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "site.css",
+              "DocumentMoniker": "C:\\Users\\elica\\OneDrive\\\u0420\u0430\u0431\u043E\u0442\u0435\u043D \u043F\u043B\u043E\u0442\\HotelReservationsManager\\HotelReservationManager\\wwwroot\\css\\site.css",
+              "RelativeDocumentMoniker": "HotelReservationManager\\wwwroot\\css\\site.css",
+              "ToolTip": "C:\\Users\\elica\\OneDrive\\\u0420\u0430\u0431\u043E\u0442\u0435\u043D \u043F\u043B\u043E\u0442\\HotelReservationsManager\\HotelReservationManager\\wwwroot\\css\\site.css",
+              "RelativeToolTip": "HotelReservationManager\\wwwroot\\css\\site.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-04-06T06:43:43.141Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\elica\\OneDrive\\\u0420\u0430\u0431\u043E\u0442\u0435\u043D \u043F\u043B\u043E\u0442\\HotelReservationsManager\\HotelReservationManager\\appsettings.json",
+              "RelativeDocumentMoniker": "HotelReservationManager\\appsettings.json",
+              "ToolTip": "C:\\Users\\elica\\OneDrive\\\u0420\u0430\u0431\u043E\u0442\u0435\u043D \u043F\u043B\u043E\u0442\\HotelReservationsManager\\HotelReservationManager\\appsettings.json",
+              "RelativeToolTip": "HotelReservationManager\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-04-06T06:40:26.784Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

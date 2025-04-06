@@ -18,5 +18,18 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: #AFDDFF;
+}
+
+.text-center {
+    background-color: #AFDDFF;
+}
+
+.text-danger {
+    color: #FF9149;
+}
+
+.table table-striped table-hover {
+    background-color: #60B5FF;
 }
